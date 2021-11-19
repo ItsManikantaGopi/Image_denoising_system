@@ -35,7 +35,7 @@ class AutoEncoder:
                                     dilation_rate = dilation,  activation = "relu")(layer)
         return layer
     @staticmethod
-    def get_model(input_size = (None,None, 3), depth = 3, dilation = 1):
+    def get_model(input_size = (28,28, 1), depth = 3, dilation = 1):
         """
         function for defining the model of autoencoder
         """
@@ -53,7 +53,7 @@ class AutoEncoder:
         decoder_input = encode
         decode = decoder_input
         for i in reversed(range(1, depth+1)):
-            features = features*2
+            features = features*2*i
             decode = AutoEncoder.depth_seperabale_block(decode, num_filters = features,
                                 kernel_size = 3, dilation = dilation,
                                 layer_name = decoder_naming_template+str(i))
